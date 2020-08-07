@@ -94,6 +94,21 @@ class BinarySearchTree:
 
         return values
 
+    def postOrderTraverseTreeRec(self, root):
+        values = []
+        # return if the current node is empty
+        if root:
+            # Traverse the left subtree
+            values = self.postOrderTraverseTreeRec(root.left)
+
+            # Traverse the right subtree
+            values += self.postOrderTraverseTreeRec(root.right)
+
+            # Display the data part of the root (or current node)
+            values.append(root.data)
+
+        return values
+
     def preOrderTraverseTree(self, root):
         values = []
         stack = []
@@ -115,6 +130,23 @@ class BinarySearchTree:
              
         return values
 
+    def preOrderTraverseTreeRec(self, root):
+        values = []
+
+        # return if the current node is empty
+        if root:
+
+            # Display the data part of the root (or current node)
+            values.append(root.data)
+
+            # Traverse the left subtree
+            values += self.preOrderTraverseTreeRec(root.left)
+
+            # Traverse the right subtree
+            values += self.preOrderTraverseTreeRec(root.right)
+
+        return values
+
 bst = BinarySearchTree()
 bst.insert(50)
 bst.insert(25)
@@ -123,8 +155,9 @@ bst.insert(30)
 bst.insert(75)
 bst.insert(85)
 
-print(bst.inOrderTraverseTree(bst.root))
+print(bst.postOrderTraverseTree(bst.root))
 print('\n')
-print(bst.inOrderTraverseTreeRec(bst.root))
+print(bst.postOrderTraverseTreeRec(bst.root))
+
 
 
