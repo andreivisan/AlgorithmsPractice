@@ -154,10 +154,10 @@ public class BinarySearchTree {
         bst.addNode(75);
         bst.addNode(85);
 
-        List<Integer> nodes = bst.preOrderTraverseTreeNonRecursive(bst.root);
-        for(Integer value : nodes) {
-            System.out.println(value);
-        }
+        // List<Integer> nodes = bst.preOrderTraverseTreeNonRecursive(bst.root);
+        // for(Integer value : nodes) {
+        //     System.out.println(value);
+        // }
         System.out.println("\n");
         bst.preOrderTraverseTree(bst.root);
 

@@ -64,6 +64,16 @@ class BinarySearchTree:
 
         return values
 
+    def inOrderTraverseTreeRec(self, focus_node):
+        values = []
+
+        if focus_node: 
+            values = self.inOrderTraverseTreeRec(focus_node.left)
+            values.append(focus_node.data)
+            values = values + self.inOrderTraverseTreeRec(focus_node.right)
+
+        return values
+
     def postOrderTraverseTree(self, root):
         values = []
         stack = []
@@ -113,6 +123,8 @@ bst.insert(30)
 bst.insert(75)
 bst.insert(85)
 
-print(bst.preOrderTraverseTree(bst.root))
+print(bst.inOrderTraverseTree(bst.root))
+print('\n')
+print(bst.inOrderTraverseTreeRec(bst.root))
 
 
