@@ -1,7 +1,11 @@
 package io.programminglife.trees;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinarySearchTree {
@@ -144,22 +148,44 @@ public class BinarySearchTree {
         return values;
     }
 
+    public List<Integer> breadthFirstSearch() {
+        Node current = root;
+        List<Integer> result = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+
+        queue.add(current);
+
+        while(queue.size() > 0) {
+            current = queue.remove();
+            result.add(current.key);
+            if(current.leftChild != null) {
+                queue.add(current.leftChild);
+            }
+            if(current.rightChild != null) {
+                queue.add(current.rightChild);
+            }
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
 
-        bst.addNode(50);
-        bst.addNode(25);
+        bst.addNode(9);
+        bst.addNode(4);
+        bst.addNode(6);
+        bst.addNode(20);
+        bst.addNode(1);
         bst.addNode(15);
-        bst.addNode(30);
-        bst.addNode(75);
-        bst.addNode(85);
+        bst.addNode(170);
 
-        // List<Integer> nodes = bst.preOrderTraverseTreeNonRecursive(bst.root);
-        // for(Integer value : nodes) {
-        //     System.out.println(value);
-        // }
-        System.out.println("\n");
-        bst.preOrderTraverseTree(bst.root);
+         List<Integer> nodes = bst.breadthFirstSearch();
+         for(Integer value : nodes) {
+             System.out.println(value);
+         }
+//        System.out.println("\n");
+//        bst.preOrderTraverseTree(bst.root);
 
     }
 }

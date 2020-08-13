@@ -64,13 +64,11 @@ class BinarySearchTree:
 
         return values
 
-    def inOrderTraverseTreeRec(self, focus_node):
-        values = []
-
+    def inOrderTraverseTreeRec(self, focus_node, values):
         if focus_node: 
-            values = self.inOrderTraverseTreeRec(focus_node.left)
+            self.inOrderTraverseTreeRec(focus_node.left, values)
             values.append(focus_node.data)
-            values = values + self.inOrderTraverseTreeRec(focus_node.right)
+            self.inOrderTraverseTreeRec(focus_node.right, values)
 
         return values
 
@@ -94,17 +92,10 @@ class BinarySearchTree:
 
         return values
 
-    def postOrderTraverseTreeRec(self, root):
-        values = []
-        # return if the current node is empty
+    def postOrderTraverseTreeRec(self, root, values):
         if root:
-            # Traverse the left subtree
-            values = self.postOrderTraverseTreeRec(root.left)
-
-            # Traverse the right subtree
-            values += self.postOrderTraverseTreeRec(root.right)
-
-            # Display the data part of the root (or current node)
+            self.postOrderTraverseTreeRec(root.left, values)
+            self.postOrderTraverseTreeRec(root.right, values)
             values.append(root.data)
 
         return values
@@ -130,34 +121,41 @@ class BinarySearchTree:
              
         return values
 
-    def preOrderTraverseTreeRec(self, root):
-        values = []
-
-        # return if the current node is empty
+    def preOrderTraverseTreeRec(self, root, values):
         if root:
-
-            # Display the data part of the root (or current node)
             values.append(root.data)
-
-            # Traverse the left subtree
-            values += self.preOrderTraverseTreeRec(root.left)
-
-            # Traverse the right subtree
-            values += self.preOrderTraverseTreeRec(root.right)
+            self.preOrderTraverseTreeRec(root.left, values)
+            self.preOrderTraverseTreeRec(root.right, values)
 
         return values
 
-bst = BinarySearchTree()
-bst.insert(50)
-bst.insert(25)
-bst.insert(15)
-bst.insert(30)
-bst.insert(75)
-bst.insert(85)
+    def breadthFirstSearch(self):
+        current = self.root
+        queue = []
+        result = []
 
-print(bst.postOrderTraverseTree(bst.root))
-print('\n')
-print(bst.postOrderTraverseTreeRec(bst.root))
+        queue.append(current)
+
+        while len(queue) > 0:
+            current = queue.pop(0)
+            result.append(current.data)
+            if current.left:
+                queue.append(current.left)
+            if current.right:
+                queue.append(current.right)
+
+        return result
+
+bst = BinarySearchTree()
+bst.insert(9)
+bst.insert(4)
+bst.insert(6)
+bst.insert(20)
+bst.insert(1)
+bst.insert(15)
+bst.insert(170)
+
+print(bst.breadthFirstSearch())
 
 
 
