@@ -29,12 +29,26 @@ public class FibonacciDynamic {
         }
     }
 
+    public static int fib(int N) {
+        int[] cache = new int[N+1];
+        if(N == 0) {
+            return N;
+        }
+        cache[0] = 0;
+        cache[1] = 1;
+        if(N >= 2) {
+            for(int i = 2; i <= N; i++) {
+                cache[i] = cache[i - 2] + cache[i - 1];
+            }
+        }
+        return cache[N];
+    }
+
     public static void main(String[] args) {
         int fibonacci = fibonacciMaster(new HashMap<>(), 30);
+        int fibonacci2 = fib(0);
 
-        System.out.println(fibonacci);
-
-        System.out.println(calculations);
+        System.out.println(fibonacci2);
     }
 
 }
