@@ -15,14 +15,6 @@ package io.programminglife.leetcode.LinkedLists;
  */
 public class DecimalValue {
 
-    public static class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-   }
-
     public static int getDecimalValue(ListNode head) {
         int decimalValue = 0;
         ListNode current = reverseLinkedList(head);
@@ -59,7 +51,6 @@ public class DecimalValue {
         ListNode head = new ListNode(1, node2);
 
         System.out.println(getDecimalValue(head));
-
     }
 
 }
