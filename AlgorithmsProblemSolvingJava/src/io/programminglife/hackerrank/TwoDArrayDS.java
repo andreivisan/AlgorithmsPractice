@@ -1,7 +1,5 @@
 package io.programminglife.hackerrank;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +23,6 @@ public class TwoDArrayDS {
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         int[][] arr = new int[6][6];
 
