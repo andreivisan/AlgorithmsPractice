@@ -2,6 +2,10 @@ package io.programminglife.leetcode.HashTables;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
