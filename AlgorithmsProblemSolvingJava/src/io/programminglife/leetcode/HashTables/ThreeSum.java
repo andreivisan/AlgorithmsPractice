@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -43,7 +44,7 @@ public class ThreeSum {
     }
 
     static void twoSum(int[] nums, int i, List<List<Integer>> result) {
-        var seen = new HashSet<Integer>();
+        Set<Integer> seen = new HashSet<Integer>();
 
         for(int j = i + 1; j < nums.length; j++) {
             int complement = -nums[i] - nums[j];

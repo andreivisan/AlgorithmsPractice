@@ -7,7 +7,7 @@ public class NumberOfRecentCalls {
 
     Queue<Integer> calls;
 
-    public RecentCounter() {
+    public NumberOfRecentCalls() {
         calls = new LinkedList<>();
     }
     

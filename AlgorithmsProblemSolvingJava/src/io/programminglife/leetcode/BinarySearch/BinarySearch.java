@@ -1,4 +1,4 @@
-package io.programminglife.leetcode.Binarysearch;
+package io.programminglife.leetcode.BinarySearch;
 
 public class BinarySearch {
 

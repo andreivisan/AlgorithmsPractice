@@ -1,4 +1,4 @@
-package io.programminglife.hackerrank;
+package io.programminglife.hackerrank.Arrays;
 
 import java.io.IOException;
 import java.util.ArrayList;
