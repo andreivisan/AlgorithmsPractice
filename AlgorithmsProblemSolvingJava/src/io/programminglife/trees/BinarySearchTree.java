@@ -9,43 +9,45 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BinarySearchTree {
-    Node root;
+    public TreeNode root;
 
-    public void addNode(int key) {
-        Node newNode = new Node(key);
-        if(root == null) {
-            root = newNode;
-        } else {
-            Node focusNode = root;
-            Node parent;
+    public void addNode(Integer key) {
+        if (key != null) {
+            TreeNode newNode = new TreeNode(key);
+            if(root == null) {
+                root = newNode;
+            } else {
+                TreeNode focusNode = root;
+                TreeNode parent;
 
-            while(true) {
-                parent = focusNode;
-                if(key < focusNode.key) {
-                    focusNode = focusNode.leftChild;
-                    if(focusNode == null) {
-                        parent.leftChild = newNode;
-                        return;
-                    }
-                } else {
-                    focusNode = focusNode.rightChild;
-                    if(focusNode == null) {
-                        parent.rightChild = newNode;
-                        return;
+                while(true) {
+                    parent = focusNode;
+                    if(key < focusNode.val) {
+                        focusNode = focusNode.left;
+                        if(focusNode == null) {
+                            parent.left = newNode;
+                            return;
+                        }
+                    } else {
+                        focusNode = focusNode.right;
+                        if(focusNode == null) {
+                            parent.right = newNode;
+                            return;
+                        }
                     }
                 }
             }
         }
     }
 
-    public Node findNode(int key) {
-        Node focusNode = root;
+    public TreeNode findNode(int key) {
+        TreeNode focusNode = root;
 
-        while(focusNode.key != key) {
-            if(key < focusNode.key) {
-                focusNode = focusNode.leftChild;
+        while(focusNode.val != key) {
+            if(key < focusNode.val) {
+                focusNode = focusNode.left;
             } else {
-                focusNode = focusNode.rightChild;
+                focusNode = focusNode.right;
             }
             if(focusNode == null) {
                 return null;
@@ -55,93 +57,93 @@ public class BinarySearchTree {
         return focusNode;
     }
 
-    public void inOrderTraverseTree(Node focusNode) {
+    public void inOrderTraverseTree(TreeNode focusNode) {
         if(focusNode != null) {
-            inOrderTraverseTree(focusNode.leftChild);
+            inOrderTraverseTree(focusNode.left);
             System.out.println(focusNode);
-            inOrderTraverseTree(focusNode.rightChild);
+            inOrderTraverseTree(focusNode.right);
         }
     }
 
-    public void preOrderTraverseTree(Node focusNode) {
+    public void preOrderTraverseTree(TreeNode focusNode) {
         if(focusNode != null) {
             System.out.println(focusNode);
-            preOrderTraverseTree(focusNode.leftChild);
-            preOrderTraverseTree(focusNode.rightChild);
+            preOrderTraverseTree(focusNode.left);
+            preOrderTraverseTree(focusNode.right);
         }
     }
 
-    public void postOrderTraverseTree(Node focusNode) {
+    public void postOrderTraverseTree(TreeNode focusNode) {
         if(focusNode != null) {
-            postOrderTraverseTree(focusNode.leftChild);
-            postOrderTraverseTree(focusNode.rightChild);
+            postOrderTraverseTree(focusNode.left);
+            postOrderTraverseTree(focusNode.right);
             System.out.println(focusNode);
         }
     }
 
-    public List<Integer> inOrderTraverseTreeNonRecursive(Node root ) {
+    public List<Integer> inOrderTraverseTreeNonRecursive(TreeNode root ) {
         List<Integer> values = new ArrayList<>();
-        Stack<Node> stack = new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
 
         if(root == null) {
             return values;
         }
 
-        Node current = root;
+        TreeNode current = root;
         while(current != null || !stack.isEmpty()) {
             while(current != null) {
                 stack.push(current);
-                current = current.leftChild;
+                current = current.left;
             }
 
             current = stack.pop();
-            values.add(current.key);
-            current = current.rightChild;
+            values.add(current.val);
+            current = current.right;
         }
 
         return values;
     }
 
-    public List<Integer> postOrderTraverseTreeNonRecursive(Node root) {
+    public List<Integer> postOrderTraverseTreeNonRecursive(TreeNode root) {
         List<Integer> values = new ArrayList<>();
 
         if(root == null) {
             return values;
         }
 
-        Stack<Node> stack = new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         while(!stack.isEmpty()) {
-            Node current = stack.pop();
-            values.add(0, current.key);
-            if(current.leftChild != null) {
-                stack.push(current.leftChild);
+            TreeNode current = stack.pop();
+            values.add(0, current.val);
+            if(current.left != null) {
+                stack.push(current.left);
             }
-            if(current.rightChild != null) {
-                stack.push(current.rightChild);
+            if(current.right != null) {
+                stack.push(current.right);
             }
         }
         
         return values;
     }
 
-    public List<Integer> preOrderTraverseTreeNonRecursive(Node root) {
+    public List<Integer> preOrderTraverseTreeNonRecursive(TreeNode root) {
         List<Integer> values = new ArrayList<>();
-        Stack<Node> stack = new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
 
         stack.push(root);
 
         while(!stack.isEmpty()) {
-            Node current = stack.pop();
-            System.out.println("====> " + current.key);
+            TreeNode current = stack.pop();
+            System.out.println("====> " + current.val);
             //values.add(current.key);
 
-            if(current.rightChild != null) {
-                stack.push(current.rightChild);
+            if(current.right != null) {
+                stack.push(current.right);
             }
 
-            if(current.leftChild != null) {
-                stack.push(current.leftChild);
+            if(current.left != null) {
+                stack.push(current.left);
             }
         }
 
@@ -149,20 +151,20 @@ public class BinarySearchTree {
     }
 
     public List<Integer> breadthFirstSearch() {
-        Node current = root;
+        TreeNode current = root;
         List<Integer> result = new ArrayList<>();
-        Queue<Node> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
 
         queue.add(current);
 
         while(queue.size() > 0) {
             current = queue.remove();
-            result.add(current.key);
-            if(current.leftChild != null) {
-                queue.add(current.leftChild);
+            result.add(current.val);
+            if(current.left != null) {
+                queue.add(current.left);
             }
-            if(current.rightChild != null) {
-                queue.add(current.rightChild);
+            if(current.right != null) {
+                queue.add(current.right);
             }
         }
 
@@ -187,20 +189,5 @@ public class BinarySearchTree {
 //        System.out.println("\n");
 //        bst.preOrderTraverseTree(bst.root);
 
-    }
-}
-
-class Node {
-    int key;
-
-    Node leftChild;
-    Node rightChild;
-
-    Node(int key) {
-        this.key = key;
-    }
-
-    public String toString() {
-        return String.valueOf(key);
     }
 }

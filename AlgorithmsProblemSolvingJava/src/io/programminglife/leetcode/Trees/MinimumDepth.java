@@ -1,5 +1,6 @@
 package io.programminglife.leetcode.Trees;
 
+import io.programminglife.trees.TreeNode;
 import javafx.util.Pair;
 
 import java.util.LinkedList;
