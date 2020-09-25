@@ -7,7 +7,9 @@ public class TreeNode {
     public TreeNode left;
     public TreeNode right;
 
-    TreeNode(Integer key) {
+    public TreeNode() {}
+
+    public TreeNode(Integer key) {
         this.val = key;
     }
 
