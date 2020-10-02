@@ -55,6 +55,21 @@ public class InvertBinaryTree {
         return root;
     }
 
+    public static TreeNode invertTreeRecursive(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTreeRecursive(root.left);
+        invertTreeRecursive(root.right);
+
+        return root;
+    }
+
     public static void main(String[] args) {
         BinarySearchTree bst1 = new BinarySearchTree();
 
@@ -68,7 +83,7 @@ public class InvertBinaryTree {
 
         bst1.preOrderTraverseTree(bst1.root);
         System.out.println("=================");
-        bst1.preOrderTraverseTree(invertTree(bst1.root));
+        bst1.preOrderTraverseTree(invertTreeRecursive(bst1.root));
     }
 
 }

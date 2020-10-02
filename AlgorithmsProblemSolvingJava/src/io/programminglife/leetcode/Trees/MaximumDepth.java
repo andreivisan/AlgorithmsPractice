@@ -2,7 +2,10 @@ package io.programminglife.leetcode.Trees;
 
 import javafx.util.Pair;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class MaximumDepth {
 
@@ -29,6 +32,25 @@ public class MaximumDepth {
         }
 
         return max;
+    }
+
+    public int maxDepthRecursive(Node root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        if (root.children.isEmpty()) {
+            return 1;
+        }
+
+        List<Integer> heights = new ArrayList<>();
+        for (Node node : root.children) {
+            heights.add(maxDepth(node));
+        }
+
+        return Collections.max(heights) + 1;
+
     }
 
 }

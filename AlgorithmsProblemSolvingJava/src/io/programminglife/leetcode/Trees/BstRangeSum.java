@@ -21,6 +21,8 @@ import java.util.Queue;
  */
 public class BstRangeSum {
 
+    static int sum = 0;
+
     public static int rangeSumBST(TreeNode root, int L, int R) {
         if (root == null) {
             return 0;
@@ -49,6 +51,24 @@ public class BstRangeSum {
         return rangeSum;
     }
 
+    public static int rangeSumBSTRecursive(TreeNode root, int L, int R) {
+        if (root != null) {
+            if (root.val >= L && root.val <= R) {
+                sum += root.val;
+            }
+
+            if (root.val > L) {
+                rangeSumBSTRecursive(root.left, L, R);
+            }
+
+            if (root.val < R) {
+                rangeSumBSTRecursive(root.right, L, R);
+            }
+        }
+
+        return sum;
+    }
+
     public static void main(String[] args) {
         Integer[] input = {10,5,15,3,7,null,18};
         BinarySearchTree bst = new BinarySearchTree();
@@ -57,7 +77,7 @@ public class BstRangeSum {
             bst.addNode(integer);
         }
 
-        System.out.println(rangeSumBST(bst.root, 7, 15));
+        System.out.println(rangeSumBSTRecursive(bst.root, 7, 15));
     }
 
 }
