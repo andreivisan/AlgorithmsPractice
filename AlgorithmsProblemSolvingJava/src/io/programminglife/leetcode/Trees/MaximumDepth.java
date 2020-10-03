@@ -1,11 +1,11 @@
 package io.programminglife.leetcode.Trees;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import io.programminglife.util.Pair;
 
 public class MaximumDepth {
 
