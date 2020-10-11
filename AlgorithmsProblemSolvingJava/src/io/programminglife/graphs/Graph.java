@@ -1,75 +1,96 @@
 package io.programminglife.graphs;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
-public class Graph {
-    private HashMap<Integer, Node> nodeLookup = new HashMap<Integer, Node>();
+public class Graph<T> {
 
-    public static class Node {
-        private int id;
-        LinkedList<Node> adjacent = new LinkedList<>();
-        private Node(int id) {
-            this.id = id;
+    public static class Node<T> {
+        private T label;
+        private LinkedList<Node<T>> adjacencyList = new LinkedList<>();
+
+        public Node(T label) {
+            this.label = label;
+        }
+
+        public LinkedList<Node<T>> getAdjacencyList() {
+            return this.adjacencyList;
+        }
+
+        public T getLabel() {
+            return this.label;
         }
     }
 
-    private Node getNode(int id) {
-        return nodeLookup.get(id);
+    private Map<T, Node<T>> lookup = new HashMap<>();
+
+    public void addNode(T label) {
+        Node<T> node = new Node<T>(label);
+        lookup.putIfAbsent(label, node);
     }
 
-    public void addEdge(int source, int destination) {
-        Node s = getNode(source);
-        Node d = getNode(destination);
-        s.adjacent.add(d);
-    }
+    public void removeNode(T label) {
+        Node<T> node = lookup.getOrDefault(label, null);
+        if(node != null) {
+            lookup.values().stream().forEach(v -> {
+                v.getAdjacencyList().remove(node);
+            });
 
-    public boolean hasPathDFS(int source, int destination) {
-        Node s = getNode(source);
-        Node d = getNode(destination);
-        HashSet<Integer> visited = new HashSet<>();
-        return hasPathDFS(s, d, visited);
-    }
-
-    private boolean hasPathDFS(Node source, Node destination, HashSet<Integer> visited) {
-        if (visited.contains(source.id)) {
-            return false;
+            lookup.remove(node);
         }
-        visited.add(source.id);
-        if (source == destination) {
-            return true;
+    }
+
+    public void addEdge(T label1, T label2) {
+        Node<T> source = lookup.get(label1);
+        Node<T> sink = lookup.get(label2);
+
+        if (source != null && sink != null) {
+            source.getAdjacencyList().push(sink);
+            sink.getAdjacencyList().push(source);
         }
-        for (Node child : source.adjacent) {
-            if (hasPathDFS(child, destination, visited)) {
-                return true;
+    }
+
+    public void removeEdge(T label1, T label2) {
+        Node<T> source = lookup.get(label1);
+        Node<T> sink = lookup.get(label2);
+
+        if (source != null && sink != null) {
+            source.getAdjacencyList().remove(sink);
+            sink.getAdjacencyList().remove(source);
+        }
+    }
+
+    public Set<Node<T>> dfsTraversalIterative(String label) {
+        if (lookup.isEmpty()) {
+            return null;
+        }
+        Node<T> start = lookup.getOrDefault(label, null);
+        
+        if (start != null) {
+            Set<Node<T>> visited = new LinkedHashSet<>();
+            Stack<Node<T>> stack = new Stack<>();
+            stack.push(start);
+
+            while (!stack.isEmpty()) {
+                Node<T> current = stack.pop();
+                
+                if (!visited.contains(current)) {
+                    visited.add(current);
+
+                    for (Node<T> node : current.adjacencyList) {
+                        stack.push(node);
+                    }
+                }
             }
+
+            return visited;
+        } else {
+            return null;
         }
-        return false;
     }
-
-    public boolean hasPathBFS(int sourceId, int destinationId) {
-        return hasPathBFS(getNode(sourceId), getNode(destinationId));
-    }
-
-    public boolean hasPathBFS(Node source, Node destination) {
-        LinkedList<Node> nextToVisit = new LinkedList<>();
-        HashSet<Integer> visited = new HashSet<>();
-        nextToVisit.add(source);
-        while (!nextToVisit.isEmpty()) {
-            Node node = nextToVisit.remove();
-            if (node == destination) {
-                return true;
-            }
-
-            if (visited.contains(node.id)) {
-                continue;
-            }
-            visited.add(node.id);
-
-            nextToVisit.addAll(node.adjacent);
-        }
-
-        return false;
-    }
+    
 }
