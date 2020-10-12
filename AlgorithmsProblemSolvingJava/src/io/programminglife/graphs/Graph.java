@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -83,6 +84,35 @@ public class Graph<T> {
 
                     for (Node<T> node : current.adjacencyList) {
                         stack.push(node);
+                    }
+                }
+            }
+
+            return visited;
+        } else {
+            return null;
+        }
+    }
+
+    public Set<Node<T>> bfsTraversalIterative(String label) {
+        if (lookup.isEmpty()) {
+            return null;
+        }
+        Node<T> start = lookup.getOrDefault(label, null);
+
+        if (start != null) {
+            Set<Node<T>> visited = new LinkedHashSet<>();
+            Queue<Node<T>> queue = new LinkedList<>();
+
+            queue.offer(start);
+            visited.add(start);
+
+            while (!queue.isEmpty()) {
+                Node<T> current = queue.poll();
+                for (Node<T> node : current.adjacencyList) {
+                    if (!visited.contains(node)) {
+                        visited.add(node);
+                        queue.offer(node);
                     }
                 }
             }

@@ -37,6 +37,18 @@ public class TestGraph {
         for (Node<String> node : dfs) {
             System.out.print(node.getLabel() + " ");
         }
+
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println(" ");
+
+        Set<Node<String>> bfs = graph.bfsTraversalIterative("Bob");
+
+        System.out.print("Bob -> ");
+
+        for (Node<String> node : bfs) {
+            System.out.print(node.getLabel() + " ");
+        }
     }
     
 }
