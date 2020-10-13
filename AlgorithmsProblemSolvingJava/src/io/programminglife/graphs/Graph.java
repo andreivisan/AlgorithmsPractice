@@ -65,7 +65,7 @@ public class Graph<T> {
         }
     }
 
-    public Set<Node<T>> dfsTraversalIterative(String label) {
+    public Set<Node<T>> dfsTraversalIterative(T label) {
         if (lookup.isEmpty()) {
             return null;
         }
@@ -94,7 +94,52 @@ public class Graph<T> {
         }
     }
 
-    public Set<Node<T>> bfsTraversalIterative(String label) {
+    public Set<Node<T>> dfsTraversalRecursive(T label, LinkedHashSet<Node<T>> visited) {
+        Node<T> start = lookup.getOrDefault(label, null);
+
+        if (start == null) {
+            return null;
+        }
+
+        visited.add(start);
+
+        for (Node<T> node : start.adjacencyList) {
+            if (!visited.contains(node)) {
+                dfsTraversalRecursive(node.getLabel(), visited);
+            }
+        }
+
+        return visited;
+    }
+
+    public boolean hasPathDFS(T sourceLabel, T destinationLabel, LinkedHashSet<Node<T>> visited) {
+        Node<T> source = lookup.getOrDefault(sourceLabel, null);
+        Node<T> destination = lookup.getOrDefault(destinationLabel, null);
+
+        if (source == null || destination == null) {
+            return false;
+        }
+
+        if (visited.contains(source)) {
+            return false;
+        }
+
+        visited.add(source);
+
+        if (source == destination) {
+            return true;
+        }
+
+        for (Node<T> node : source.adjacencyList) {
+            if (hasPathDFS(node.getLabel(), destination.getLabel(), visited)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Set<Node<T>> bfsTraversalIterative(T label) {
         if (lookup.isEmpty()) {
             return null;
         }

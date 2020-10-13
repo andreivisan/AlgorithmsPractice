@@ -1,5 +1,7 @@
 package io.programminglife.graphs;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import io.programminglife.graphs.Graph.Node;
@@ -39,16 +41,27 @@ public class TestGraph {
         }
 
         System.out.println(" ");
-        System.out.println(" ");
-        System.out.println(" ");
 
-        Set<Node<String>> bfs = graph.bfsTraversalIterative("Bob");
+        Set<Node<String>> dfsRec = graph.dfsTraversalRecursive("Bob", new LinkedHashSet<Node<String>>());
 
         System.out.print("Bob -> ");
 
-        for (Node<String> node : bfs) {
+        for (Node<String> node : dfsRec) {
             System.out.print(node.getLabel() + " ");
         }
+
+        System.out.println(" ");
+
+        System.out.println(graph.hasPathDFS("Bob", "Rob", new LinkedHashSet<>()));
+//        System.out.println(" ");
+//
+//        Set<Node<String>> bfs = graph.bfsTraversalIterative("Bob");
+//
+//        System.out.print("Bob -> ");
+//
+//        for (Node<String> node : bfs) {
+//            System.out.print(node.getLabel() + " ");
+//        }
     }
     
 }
