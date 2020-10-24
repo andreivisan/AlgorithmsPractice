@@ -18,11 +18,11 @@ public class TestGraph {
         graph.addNode("Maria");
 
         graph.addEdge("Bob", "Alice");
-        graph.addEdge("Bob", "Rob");
-        graph.addEdge("Alice", "Mark");
-        graph.addEdge("Rob", "Mark");
         graph.addEdge("Alice", "Maria");
+        graph.addEdge("Rob", "Bob");
+        graph.addEdge("Rob", "Mark");
         graph.addEdge("Rob", "Maria");
+        graph.addEdge("Mark", "Alice");
 
         return graph;
     }
@@ -30,38 +30,10 @@ public class TestGraph {
     public static void main(String[] args) {
         Graph<String> graph = createGraph();
 
-        System.out.println(graph);
+        System.out.println(graph.hasPathDFS("Bob", "Rob", new LinkedHashSet<>())); 
 
-        Set<Node<String>> dfs = graph.dfsTraversalIterative("Bob");
-
-        System.out.print("Bob -> ");
-
-        for (Node<String> node : dfs) {
-            System.out.print(node.getLabel() + " ");
-        }
-
-        System.out.println(" ");
-
-        Set<Node<String>> dfsRec = graph.dfsTraversalRecursive("Bob", new LinkedHashSet<Node<String>>());
-
-        System.out.print("Bob -> ");
-
-        for (Node<String> node : dfsRec) {
-            System.out.print(node.getLabel() + " ");
-        }
-
-        System.out.println(" ");
-
-        System.out.println(graph.hasPathDFS("Bob", "Rob", new LinkedHashSet<>()));
-//        System.out.println(" ");
-//
-//        Set<Node<String>> bfs = graph.bfsTraversalIterative("Bob");
-//
-//        System.out.print("Bob -> ");
-//
-//        for (Node<String> node : bfs) {
-//            System.out.print(node.getLabel() + " ");
-//        }
+        System.out.println(graph.hasPathDFSIterative("Mark", "Bob")); 
+        System.out.println(graph.hasPathBFS("Mark", "Maria")); 
     }
     
 }

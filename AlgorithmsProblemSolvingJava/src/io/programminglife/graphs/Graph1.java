@@ -15,7 +15,7 @@ public class Graph1 {
         }
     }
 
-    private Node getNode(int id) {
+    public Node getNode(int id) {
         return nodeLookup.get(id);
     }
 

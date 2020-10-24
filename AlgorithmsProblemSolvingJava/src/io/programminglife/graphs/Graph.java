@@ -34,6 +34,10 @@ public class Graph<T> {
         lookup.putIfAbsent(label, node);
     }
 
+    public Node<T> getNode(T label) {
+        return lookup.get(label);
+    }
+
     public void removeNode(T label) {
         Node<T> node = lookup.getOrDefault(label, null);
         if(node != null) {
@@ -51,7 +55,6 @@ public class Graph<T> {
 
         if (source != null && sink != null) {
             source.getAdjacencyList().push(sink);
-            sink.getAdjacencyList().push(source);
         }
     }
 
@@ -139,6 +142,38 @@ public class Graph<T> {
         return false;
     }
 
+    public boolean hasPathDFSIterative(T sourceLabel, T destinationLabel) {
+        Node<T> source = lookup.getOrDefault(sourceLabel, null);
+        Node<T> destination = lookup.getOrDefault(destinationLabel, null);
+
+        if (source == null || destination == null) {
+            return false;
+        }
+
+        LinkedHashSet<Node<T>> visited = new LinkedHashSet<>();
+        Stack<Node<T>> stack = new Stack<>();
+
+        stack.add(source);
+
+        while (!stack.isEmpty()) {
+            Node<T> currentNode = stack.pop();
+
+            if (!visited.contains(currentNode)) {
+                visited.add(currentNode);
+
+                if (currentNode == destination) {
+                    return true;
+                }
+                
+                for (Node<T> node : currentNode.adjacencyList) {
+                    stack.add(node);
+                }
+            }
+        }
+
+        return false;
+    }
+
     public Set<Node<T>> bfsTraversalIterative(T label) {
         if (lookup.isEmpty()) {
             return null;
@@ -166,6 +201,36 @@ public class Graph<T> {
         } else {
             return null;
         }
+    }
+
+    public boolean hasPathBFS(T sourceLabel, T destinationLabel) {
+        Node<T> source = lookup.getOrDefault(sourceLabel, null);
+        Node<T> destination = lookup.getOrDefault(destinationLabel, null);
+
+        if (source == null || destination == null) {
+            return false;
+        }
+
+        Set<Node<T>> visited = new LinkedHashSet<>();
+        Queue<Node<T>> queue = new LinkedList<>();
+
+        queue.offer(source);
+        visited.add(source);
+
+        while (!queue.isEmpty()) {
+            Node<T> currentNode = queue.poll();
+            if (currentNode == destination) {
+                return true;
+            }
+            for (Node<T> node : currentNode.adjacencyList) {
+                if (!visited.contains(node)) {
+                    visited.add(node);
+                    queue.offer(node);
+                }
+            }
+        }
+        
+        return false;
     }
     
 }
