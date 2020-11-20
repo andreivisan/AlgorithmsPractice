@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 
 public class NetworkTimeDelay {
 
-    public int networkDelayTime(int[][] times, int N, int K) {
+    public int networkDelayTimeDijkstra(int[][] times, int N, int K) {
         Map<Integer, List<int[]>> graph = createGraph(times);
         Map<Integer, Integer> distances = initializeDistances(N);
         PriorityQueue<Integer> heap = new PriorityQueue<>((v1, v2) -> distances.get(v1) - distances.get(v2));
@@ -35,7 +35,30 @@ public class NetworkTimeDelay {
         }
 
         int ans = Collections.max(distances.values());
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
 
+    public int networkDelayTimeBellmanFord(int[][] times, int N, int K) {
+        Map<Integer, Integer> distances = initializeDistances(N);
+        distances.put(K, 0);
+
+        for (int i = 0; i < N - 1; i++) {
+            for (int v = 0; v < times.length; v++) {
+                int source = times[v][0];
+                int destination = times[v][1];
+                int weight = times[v][2];
+
+                if (distances.get(source) == Integer.MAX_VALUE) {
+                    continue;
+                }
+
+                if (distances.get(source) + weight < distances.get(destination)) {
+                    distances.put(destination, distances.get(source) + weight);
+                }
+            }
+        }
+
+        int ans = Collections.max(distances.values());
         return ans == Integer.MAX_VALUE ? -1 : ans;
     }
 
