@@ -2,6 +2,7 @@ package io.programminglife.leetcode.Recursion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PartitionKEqualSumSubsets {
 
@@ -40,6 +41,24 @@ public class PartitionKEqualSumSubsets {
         
         return sum(target) == 0;
     }
+
+    // private boolean partitionDP(int[] nums, int i, int[] target, List<List<Integer>> partitions, Map<String, Boolean> mem) {
+    //     for (int j = 0; j < target.length && i < nums.length; j++) {
+    //         int currentValue = nums[i];
+    //         if (target[j] >= currentValue) {
+    //             target[j] -= currentValue;
+
+    //             if (partition(nums, i + 1, target, partitions)) {
+    //                 partitions.get(j).add(currentValue);
+    //                 break;
+    //             } else {
+    //                 target[j] += currentValue;
+    //             }
+    //         }
+    //     }
+        
+    //     return sum(target) == 0;
+    // }
 
     private int sum(int[] input) {
         int sum = 0;
