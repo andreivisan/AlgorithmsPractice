@@ -20,7 +20,7 @@ public class MinimumCostOfClimbingStairs {
         return cost[i] + Math.min(minCostBrute(i - 1, cost), minCostBrute(i - 2, cost));
     }
 
-    public int minCostClimbingStairs(int[] cost) {
+    public int minCostClimbingStairsRec(int[] cost) {
         int n = cost.length;
         int[] mins = new int[n];
         
@@ -45,6 +45,21 @@ public class MinimumCostOfClimbingStairs {
         }
 
         return mins[i];
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int minCost[] = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            if (i < 2) {
+                minCost[i] = cost[i];
+            } else {
+                minCost[i] = cost[i] + Math.min(minCost[i - 1], minCost[i - 2]);
+            }
+        }
+
+        return Math.min(minCost[n - 1], minCost[n - 2]);
     }
 
     public static void main(String[] args) {
