@@ -111,6 +111,23 @@ public class BSTConstruction {
         }
     }
 
+    public static boolean validateBst(BST tree) {
+        return validateBst(tree, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private static boolean validateBst(BST tree, int minValue, int maxValue) {
+        if (tree == null) {
+            return true;
+        }
+
+        if (tree.value < minValue || tree.value >= maxValue) {
+            return false;
+        }
+
+        return validateBst(tree.left, minValue, tree.value) &&
+                validateBst(tree.right, tree.value, maxValue);
+    }
+
     public static void main(String[] args) {
         BST tree = new BST(10);
         tree = tree.insert(5);
@@ -125,7 +142,7 @@ public class BSTConstruction {
 
         tree.print(tree);
 
-        System.out.println(tree.contains(25));
+        System.out.println(validateBst(tree));
     }
 
 }
