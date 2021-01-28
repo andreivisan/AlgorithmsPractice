@@ -28,6 +28,34 @@ public class BinaryTreeFindSuccessor {
         inOrderTraverse(tree.right, nodes);
     }
 
+    public BinaryTree findSuccessorOptimal(BinaryTree tree, BinaryTree node) {
+        if (node.right != null) {
+            return getLeftmostChild(node.right);
+        }
+
+        return getRightmostParent(node);
+    }
+
+    public BinaryTree getLeftmostChild(BinaryTree tree) {
+        BinaryTree current = tree;
+
+        while (current.left != null) {
+            current = current.left;
+        }
+
+        return current;
+    }
+
+    public BinaryTree getRightmostParent(BinaryTree node) {
+        BinaryTree current = node;
+
+        while (current.parent != null && current.parent.right == node) {
+            current = current.parent;
+        }
+
+        return current.parent;
+    }
+
     static class BinaryTree {
         public int value;
         public BinaryTree left = null;
