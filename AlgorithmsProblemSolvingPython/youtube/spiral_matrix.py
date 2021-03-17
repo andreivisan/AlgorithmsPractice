@@ -35,10 +35,6 @@ def spiral_helper(matrix, start_row, end_row, start_column, end_column, result):
     spiral_helper(matrix, start_row + 1, end_row - 1,
                   start_column + 1, end_column - 1, result)
 
-                  result = []
-        spiral_helper(matrix, 0, len(matrix) - 1, 0,       len(matrix[0]) - 1, result)
-        return result
-
 
 if __name__ == "__main__":
     matrix = [
